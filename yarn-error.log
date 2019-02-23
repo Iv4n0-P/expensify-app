@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\studioP\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js test
+  C:\Program Files\nodejs\node.exe C:\Users\studioP\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js run build:prod
 
 PATH: 
-  D:\eOFFICE\Coding\JS\cmder\bin;D:\eOFFICE\Coding\JS\cmder\vendor\bin;D:\eOFFICE\Coding\JS\cmder\vendor\conemu-maximus5\ConEmu\Scripts;D:\eOFFICE\Coding\JS\cmder\vendor\conemu-maximus5;D:\eOFFICE\Coding\JS\cmder\vendor\conemu-maximus5\ConEmu;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\PuTTY\;C:\Program Files\nodejs\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Users\studioP\AppData\Local\Microsoft\WindowsApps;C:\Users\studioP\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\studioP\AppData\Roaming\npm;D:\eOFFICE\Coding\JS\cmder\vendor\git-for-windows\cmd;D:\eOFFICE\Coding\JS\cmder\vendor\git-for-windows\mingw64\bin;D:\eOFFICE\Coding\JS\cmder\vendor\git-for-windows\usr\bin;D:\eOFFICE\Coding\JS\cmder
+  D:\eOFFICE\Coding\JS\cmder\bin;D:\eOFFICE\Coding\JS\cmder\vendor\bin;D:\eOFFICE\Coding\JS\cmder\vendor\conemu-maximus5\ConEmu\Scripts;D:\eOFFICE\Coding\JS\cmder\vendor\conemu-maximus5;D:\eOFFICE\Coding\JS\cmder\vendor\conemu-maximus5\ConEmu;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\PuTTY\;C:\Program Files\nodejs\;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Git\cmd;C:\Users\studioP\AppData\Local\Microsoft\WindowsApps;C:\Users\studioP\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\studioP\AppData\Roaming\npm;C:\Users\studioP\AppData\Local\GitHubDesktop\bin;C:\Program Files\Git\cmd;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;D:\eOFFICE\Coding\JS\cmder
 
 Yarn version: 
   1.12.3
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  SyntaxError: F:\JavaScript\JS\scripts\react\expensify-app\package.json: Unexpected string in JSON at position 261
+  SyntaxError: F:\JavaScript\JS\scripts\react\expensify-app\package.json: Unexpected string in JSON at position 216
       at JSON.parse (<anonymous>)
       at C:\Users\studioP\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1631:59
       at Generator.next (<anonymous>)
@@ -30,10 +30,11 @@ npm manifest:
     "license": "MIT",
     "scripts": {
       "serve": "live-server public/",
-      "build": "webpack",
+      "build:dev": "webpack",
+      "build:prod" "webpack -p",
       "dev-server": "webpack-dev-server",
-      "test": "jest"
-      
+      "test": "jest --config=jest.config.json"
+    },
     "dependencies": {
       "@babel/preset-env": "^7.3.1",
       "babel-cli": "6.24.1",
@@ -52,7 +53,7 @@ npm manifest:
       "moment": "^2.24.0",
       "node-sass": "^4.11.0",
       "normalize.css": "^8.0.1",
-      "raf": "3.3.2",
+      "raf": "^3.4.1",
       "react": "^16.4.0",
       "react-addons-shallow-compare": "^15.6.2",
       "react-dates": "^19.0.0",
@@ -6725,14 +6726,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.0.tgz#7ded8dfbf7879dcc60d0a644ac6754b283ad17ef"
     integrity sha512-sluvZZ1YiTLD5jsqZcDmFyV2EwToyXZBfpoVOmktMmW+VEnhgakFHnasVph65fOjGPTWN0Nw3+XQaSeMayr0kg==
   
-  raf@3.3.2:
-    version "3.3.2"
-    resolved "https://registry.yarnpkg.com/raf/-/raf-3.3.2.tgz#0c13be0b5b49b46f76d6669248d527cf2b02fe27"
-    integrity sha1-DBO+C1tJtG921maSSNUnzysC/ic=
-    dependencies:
-      performance-now "^2.1.0"
-  
-  raf@^3.3.2:
+  raf@^3.3.2, raf@^3.4.1:
     version "3.4.1"
     resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.1.tgz#0742e99a4a6552f445d73e3ee0328af0ff1ede39"
     integrity sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==
