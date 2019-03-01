@@ -1,3 +1,4 @@
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -16,7 +17,7 @@ store.subscribe(() => {
     const state = store.getState()
     const visibleExpenses = getVisibleExpenses(state.expenses, state.filters)
     console.log(visibleExpenses)
-})
+}) 
 
 /* store.dispatch (addExpense({description: 'Water bill', amount: 4500}))
 store.dispatch (addExpense({description: 'Gas bill', createdAt: 1000}))
@@ -37,8 +38,26 @@ store.dispatch (addExpense({description: 'Rent', amount: 109500})) */
     </Provider>
 ) 
 
-ReactDOM.render(jsx, document.getElementById('app'));
+//--------------------
 
+import expenses from './tests/fictures/expenses.js'
+import moment from 'moment'
+
+const getExpenseTotal = (expenses = [{amount: 0}]) => {
+    return expenses.reduce((n, {amount}) => n+amount, 0)
+}
+
+const total = getExpenseTotal(expenses)
+
+const jsx2 = (
+    <div>
+    {console.log(total)}
+    </div>
+    )
+
+//---------------------
+
+ReactDOM.render(jsx, document.getElementById('app')); 
 
 //--------------------------------------
 //HIGHER ORDER COMPONENT (HOC)
