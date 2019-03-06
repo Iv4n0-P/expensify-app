@@ -1,4 +1,8 @@
-import { addExpense, removeExpense, editExpense } from '../../actions/expenses.js'
+import { startAddExpense, addExpense, removeExpense, editExpense } from '../../actions/expenses.js'
+import expenses from '../fictures/expenses'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+import database from '../../firebase/firebase'
 
 test('removeExpense', () => {
     const result = removeExpense({id: '123abc'});
@@ -18,21 +22,80 @@ test('editExpense', () => {
 });
 
 test('addExpense1', () => {
-    const expenseData = {
-        description: 'Rent',
-        amount: 109500,
-        createdAt: 1000,
-        note: 'This was last months rent'
-    }
-    const result = addExpense(expenseData);
+    const result = addExpense(expenses[2]);
     expect(result).toEqual({
         type: 'ADD_EXPENSE',
-        expense: {...expenseData,
-        id: expect.any(String)}
+        expense: expenses[2]
     });
   });
 
-test('addExpense2', () => {
+//ASYNC TESTOVI
+//ovo je test za asinkronizirani kod
+//sad će mockat store
+//https://github.com/dmitry-zaets/redux-mock-store
+//yarn add redux-mock-store
+//import configureMockStore from 'redux-mock-store'
+//import thunk from 'redux-thunk'
+
+//ovo nije kreacija novog stora nego konfiguracija da svi testovi kreiraju isti mock store
+const createMockStore = configureMockStore([thunk])
+//ovo (done) govori JETS-u da se radi o asinkroniziranom testu
+test('should add expense to database and store', (done) => {
+const store = createMockStore({}) // ovo kreiraja mock store
+const expenseData = {
+    description: 'mouse',
+    amount: 3000,
+    note: 'This one is beter',
+    createdAt: 1000
+}
+store.dispatch(startAddExpense(expenseData)).then(() => {
+    const actions = store.getActions()
+    expect(actions[0]).toEqual({
+        type: 'ADD_EXPENSE',
+        expense: {
+            id: expect.any(String),
+            ...expenseData
+        }
+    })
+
+    return database.ref(`expenses/${actions[0].expense.id}`).once('value')
+    //ovo vraća promise
+}).then((snapshot)=> {
+    //i ovaj then je success case za taj promise
+    expect(snapshot.val()).toEqual(expenseData)
+    done()
+})
+})
+
+test('should add expense with defaults to database and store', (done) => {
+    const store = createMockStore({}) // ovo kreiraja mock store
+    const expenseDefaults = {
+            description: '', 
+            note: '', 
+            amount: 0, 
+            createdAt: 0
+    }
+    store.dispatch(startAddExpense({})).then(() => {
+        const actions = store.getActions()
+        expect(actions[0]).toEqual({
+            type: 'ADD_EXPENSE',
+            expense: {
+                id: expect.any(String),
+                ...expenseDefaults
+            }
+        })
+    
+        return database.ref(`expenses/${actions[0].expense.id}`).once('value')
+        //ovo vraća promise
+    }).then((snapshot)=> {
+        //i ovaj then je success case za taj promise
+        expect(snapshot.val()).toEqual(expenseDefaults)
+        done()
+    })
+})
+
+
+/* test('addExpense2', () => {
     const result = addExpense();
     expect(result).toEqual({
         type: 'ADD_EXPENSE',
@@ -44,4 +107,4 @@ test('addExpense2', () => {
         note: ''
     }
     });
-  });
+  }); */

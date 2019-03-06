@@ -10,6 +10,7 @@ import getVisibleExpenses from './selectors/expenses'
 import 'normalize.css/normalize.css'
 import './styles/styles.scss'
 import 'react-dates/lib/css/_datepicker.css'
+import './firebase/firebase'
 
 const store = configureStore()
 
@@ -40,20 +41,6 @@ store.dispatch (addExpense({description: 'Rent', amount: 109500})) */
 
 //--------------------
 
-import expenses from './tests/fictures/expenses.js'
-import moment from 'moment'
-
-const getExpenseTotal = (expenses = [{amount: 0}]) => {
-    return expenses.reduce((n, {amount}) => n+amount, 0)
-}
-
-const total = getExpenseTotal(expenses)
-
-const jsx2 = (
-    <div>
-    {console.log(total)}
-    </div>
-    )
 
 //---------------------
 
