@@ -4,12 +4,16 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 import database from '../../firebase/firebase'
 
+const uid = 'thisismytestuid'
+const defaultAuthState = { auth: { uid } }
+
+
 beforeEach((done) => {
     const expensesData = {}
     expenses.forEach(({ id, description, note, amount, createdAt }) => {
         expensesData[id] = { description, note, amount, createdAt}
     })
-    database.ref('expenses').set(expensesData).then(() => done())
+    database.ref(`users/${uid}/expenses`).set(expensesData).then(() => done())
 })
 
 test('removeExpense', () => {
@@ -21,7 +25,7 @@ test('removeExpense', () => {
   });
 
 test('should remove expense from firebase', (done) => {
-    const store = createMockStore({})
+    const store = createMockStore(defaultAuthState)
     const id = expenses[1].id
     store.dispatch(startRemoveExpense({ id })).then(() => {
         const actions = store.getActions()
@@ -29,7 +33,7 @@ test('should remove expense from firebase', (done) => {
             type: 'REMOVE_EXPENSE',
             id
         })
-        return database.ref(`expenses/${id}`).once('value')
+        return database.ref(`users/${uid}/expenses/${id}`).once('value')
     }).then((snapshot) => {
         expect(snapshot.val()).toBeFalsy()
         done()
@@ -37,7 +41,7 @@ test('should remove expense from firebase', (done) => {
 })
 
 test('should edit expense in firebase', (done) => {
-    const store = createMockStore({})
+    const store = createMockStore(defaultAuthState)
     const updates = { amount: 21045 }
     const id = expenses[0].id
     store.dispatch(startEditExpense ( id, updates )).then(() => {
@@ -47,7 +51,7 @@ test('should edit expense in firebase', (done) => {
             id,
             updates
         })
-        return database.ref(`expenses/${id}`).once('value')
+        return database.ref(`users/${uid}/expenses/${id}`).once('value')
     }).then((snapshot) => {
         expect(snapshot.val().amount).toBe(updates.amount)
         done()
@@ -84,7 +88,7 @@ test('addExpense1', () => {
 const createMockStore = configureMockStore([thunk])
 //ovo (done) govori JETS-u da se radi o asinkroniziranom testu
 test('should add expense to database and store', (done) => {
-const store = createMockStore({}) // ovo kreiraja mock store
+const store = createMockStore(defaultAuthState) // ovo kreiraja mock store
 const expenseData = {
     description: 'mouse',
     amount: 3000,
@@ -101,7 +105,7 @@ store.dispatch(startAddExpense(expenseData)).then(() => {
         }
     })
 
-    return database.ref(`expenses/${actions[0].expense.id}`).once('value')
+    return database.ref(`users/${uid}/expenses/${actions[0].expense.id}`).once('value')
     //ovo vraća promise
 }).then((snapshot)=> {
     //i ovaj then je success case za taj promise
@@ -111,14 +115,14 @@ store.dispatch(startAddExpense(expenseData)).then(() => {
 })
 
 test('should add expense with defaults to database and store', (done) => {
-    const store = createMockStore({}) // ovo kreiraja mock store
+    const store = createMockStore(defaultAuthState) // ovo kreiraja mock store
     const expenseDefaults = {
             description: '', 
             note: '', 
             amount: 0, 
             createdAt: 0
     }
-    store.dispatch(startAddExpense({})).then(() => {
+    store.dispatch(startAddExpense(defaultAuthState)).then(() => {
         const actions = store.getActions()
         expect(actions[0]).toEqual({
             type: 'ADD_EXPENSE',
@@ -128,7 +132,7 @@ test('should add expense with defaults to database and store', (done) => {
             }
         })
     
-        return database.ref(`expenses/${actions[0].expense.id}`).once('value')
+        return database.ref(`users/${uid}/expenses/${actions[0].expense.id}`).once('value')
         //ovo vraća promise
     }).then((snapshot)=> {
         //i ovaj then je success case za taj promise
@@ -161,7 +165,7 @@ test('should add expense with defaults to database and store', (done) => {
   })
 
   test ('Should fetch the expenses from firebase', (done) => {
-      const store = createMockStore({})
+      const store = createMockStore(defaultAuthState)
       store.dispatch(startSetExpenses()).then(() => {
       const actions = store.getActions()
       expect(actions[0]).toEqual({
