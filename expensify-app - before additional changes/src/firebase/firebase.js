@@ -15,10 +15,8 @@ firebase.initializeApp(config)
 const database = firebase.database()
 
 const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
-const facebookAuthProvider = new firebase.auth.FacebookAuthProvider()
-const twitterAuthProvider = new firebase.auth.TwitterAuthProvider()
 
-export { firebase, googleAuthProvider, facebookAuthProvider, twitterAuthProvider, database as default}
+export { firebase, googleAuthProvider, database as default}
 
 //child remove event
 //database.ref('expenses').on('child_removed', (snapshot) => {

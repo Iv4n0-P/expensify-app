@@ -19,3 +19,31 @@
 .button-blue--secondary {
     background: #888888;
 }
+
+.button-google {
+    width: 100%;
+    background: $google;
+    font-size: $font-size-medium;
+    margin-top: 5px;
+}
+
+.button-facebook {
+    margin-top: 5px;
+    width: 100%;
+    background: $facebook;
+    font-size: $font-size-medium;
+}
+
+.button-twitter {
+    margin-top: 5px;
+    width: 100%;
+    background: $twitter;
+    font-size: $font-size-medium;
+}
+
+.button-github {
+    margin-top: 5px;
+    width: 100%;
+    background: $github;
+    font-size: $font-size-medium;
+}

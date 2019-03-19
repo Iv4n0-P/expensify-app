@@ -1,0 +1,21 @@
+.button-blue {
+    padding: $s-size $xl-size;
+    background: $blue;
+    color: white;
+    display: inline-block;
+    border-width: 0px;
+    //ili border: none;
+    font-size: $font-size-large; //čisto font u varijablu se može isto
+    text-decoration: none;
+    line-height: 1;
+}
+
+.button-blue--nobg {
+    background: none;
+    border: none;
+    color: #f7f7f7;
+}
+
+.button-blue--secondary {
+    background: #888888;
+}
