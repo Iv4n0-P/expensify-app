@@ -27,6 +27,18 @@ exports[`should render LoginPage correctly 1`] = `
     >
       Login with Facebook
     </button>
+    <button
+      className="button-blue button-twitter"
+      id="startLoginTwitter"
+    >
+      Login with Twitter
+    </button>
+    <button
+      className="button-blue button-github"
+      id="startLoginGithub"
+    >
+      Login with Github
+    </button>
   </div>
 </div>
 `;
