@@ -11,6 +11,13 @@ if (process.env.NODE_ENV==='test') {
     require('dotenv').config({ path: '.env.development' })
 }
 
+//ovaj ispod kod je bio prije ali je davao error na heroku, sa samo else radi
+/* if (process.env.NODE_ENV==='test') {
+    require('dotenv').config({ path: '.env.test'})
+} else if (process.env.NODE_ENV==='development') {
+    require('dotenv').config({ path: '.env.development' })
+}
+ */
 module.exports = (env) => {
     const isProduction = env === 'production'
     const CSSExtract = new ExtractTextPlugin('styles.css')
