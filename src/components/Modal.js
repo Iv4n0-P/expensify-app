@@ -11,8 +11,8 @@ export const OptionModal = (props) => (
   >
     <div>
       <p>Do you want to delete this expense?</p>
-      <button className="button-blue button-modal" onClick={props.onRemove}>Remove Expense</button>
-      <button className="button-blue button-modal" onClick={props.handleCloseModal}>Close</button>
+      <button className="button-blue button-github" onClick={props.onRemove}>Remove Expense</button>
+      <button className="button-blue button-github" onClick={props.handleCloseModal}>Close</button>
     </div>
   </Modal>
 )
